@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max or Min of a Quadratic Function - Lesson & Worksheet - MCR3U</title>
+<style>
+    :root {
+        --primary-blue: #1e3a8a;
+        --secondary-gold: #d97706;
+        --bg-light: #f8fafc;
+        --card-bg: #ffffff;
+        --text-dark: #0f172a;
+        --correct-green: #059669;
+        --incorrect-red: #dc2626;
+        --skipped-amber: #f59e0b;
+    }
+
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+    }
+
+    .quiz-card {
+        width: 100%;
+        max-width: 980px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #0f172a 0%, var(--primary-blue) 100%);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 5px solid var(--secondary-gold);
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .header h2 {
+        margin: 5px 0 0 0;
+        font-size: 14px;
+        color: #fcd34d;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    /* Video Section */
+    .video-section {
+        background: #0f172a;
+        padding: 15px 20px;
+        color: white;
+        border-bottom: 2px solid #334155;
+    }
+
+    .video-toggle-btn {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .video-toggle-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .video-container {
+        margin-top: 15px;
+        display: none;
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .login-screen {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .login-screen h3 {
+        margin-bottom: 10px;
+        color: var(--primary-blue);
+    }
+
+    .login-screen p {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .login-input {
+        width: 100%;
+        max-width: 350px;
+        padding: 12px 15px;
+        border: 2px solid #cbd5e0;
+        border-radius: 8px;
+        font-size: 15px;
+        margin-bottom: 15px;
+        outline: none;
+    }
+
+    .login-input:focus {
+        border-color: #2563eb;
+    }
+
+    .controls {
+        padding: 12px 20px;
+        background: #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 13px;
+    }
+
+    .user-badge {
+        font-weight: 600;
+        color: var(--primary-blue);
+    }
+
+    .btn-logout {
+        background: #e2e8f0;
+        color: #475569;
+        border: 1px solid #cbd5e0;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .btn-logout:hover {
+        background: #cbd5e0;
+    }
+
+    .progress-bar-container {
+        height: 6px;
+        background: #cbd5e0;
+        width: 100%;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--secondary-gold);
+        transition: width 0.3s ease;
+    }
+
+    .quiz-layout {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .quiz-body {
+        flex: 1;
+        min-width: 300px;
+        padding: 25px 20px;
+        display: none;
+    }
+
+    .side-panel {
+        width: 260px;
+        background: #f8fafc;
+        border-left: 2px solid #e2e8f0;
+        padding: 20px 15px;
+        display: none;
+    }
+
+    .panel-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-blue);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+
+    .status-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .dot-current { background: #2563eb; }
+    .dot-attempted { background: var(--correct-green); }
+    .dot-skipped { background: var(--skipped-amber); }
+    .dot-unvisited { background: #cbd5e0; }
+
+    .q-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        max-height: 380px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+    .grid-btn {
+        padding: 8px 0;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        border: 1px solid #cbd5e0;
+        background: #ffffff;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .grid-btn.current { border: 2px solid #2563eb; color: #2563eb; font-weight: 800; }
+    .grid-btn.attempted { background: #d1fae5; color: #065f46; border-color: var(--correct-green); }
+    .grid-btn.skipped { background: #fef3c7; color: #92400e; border-color: var(--skipped-amber); }
+
+    .q-number {
+        font-size: 13px;
+        font-weight: 700;
+        color: #2563eb;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .question-text {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .options-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+    }
+
+    .option-item {
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .option-item:hover {
+        border-color: #93c5fd;
+        background-color: #eff6ff;
+    }
+
+    .option-item.selected {
+        border-color: #2563eb;
+        background-color: #dbeafe;
+        font-weight: 600;
+    }
+
+    .option-item.correct {
+        border-color: var(--correct-green);
+        background-color: #d1fae5;
+        color: #065f46;
+        font-weight: 600;
+    }
+
+    .option-item.wrong {
+        border-color: var(--incorrect-red);
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+
+    .explanation-box {
+        display: none;
+        padding: 15px;
+        border-radius: 8px;
+        background: #f1f5f9;
+        border-left: 4px solid #2563eb;
+        margin-bottom: 20px;
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+
+    .footer-btn-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-check {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-check:hover {
+        background: #1d4ed8;
+    }
+
+    .btn-skip {
+        background: #64748b;
+        color: white;
+    }
+
+    .btn-skip:hover {
+        background: #475569;
+    }
+
+    .btn-next {
+        background: var(--secondary-gold);
+        color: white;
+    }
+
+    .btn-next:hover {
+        background: #b45309;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Score & Review Screen Styles */
+    .score-screen {
+        text-align: center;
+        padding: 30px 20px;
+        display: none;
+    }
+
+    .score-screen h2 {
+        font-size: 24px;
+        color: var(--primary-blue);
+        margin-bottom: 5px;
+    }
+
+    .score-badge {
+        font-size: 38px;
+        font-weight: 800;
+        color: var(--secondary-gold);
+        margin: 15px 0;
+    }
+
+    .review-container {
+        text-align: left;
+        margin-top: 30px;
+        border-top: 2px solid #e2e8f0;
+        padding-top: 20px;
+    }
+
+    .review-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 13.5px;
+        background: #ffffff;
+    }
+
+    .review-table th, .review-table td {
+        border: 1px solid #cbd5e0;
+        padding: 12px;
+        vertical-align: top;
+    }
+
+    .review-table th {
+        background: #0f172a;
+        color: #ffffff;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .review-table tr:nth-child(even) {
+        background: #f8fafc;
+    }
+
+    .status-tag {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .tag-correct { background: #d1fae5; color: var(--correct-green); }
+    .tag-wrong { background: #fee2e2; color: var(--incorrect-red); }
+    .tag-skipped { background: #fef3c7; color: #92400e; }
+</style>
+</head>
+<body>
+
+<div class="quiz-card">
+    <div class="header">
+        <h1>MAX OR MIN OF A QUADRATIC FUNCTION</h1>
+        <h2>LESSON & WORKSHEET • MCR3U • JENSEN</h2>
+    </div>
+
+    <!-- Embedded Video Lesson Section -->
+    <div class="video-section">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span><strong>Video Lesson:</strong> 1.3 - Completing the Square (JensenMath)</span>
+            <button class="video-toggle-btn" onclick="toggleVideo()">
+                <span id="videoToggleText">▶ Show Video Lesson</span>
+            </button>
+        </div>
+        <div class="video-container" id="videoBox">
+            <iframe id="lessonIframe" src="https://www.youtube.com/embed/usqnYWN57do?enablejsapi=1" title="1.3 - Completing the Square - Functions 11" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <h3>Student Login</h3>
+        <p>Enter your Email ID to practice Max or Min of a Quadratic Function (MCR3U Jensen).</p>
+        <form onsubmit="handleLogin(event)">
+            <input type="email" id="userEmail" class="login-input" placeholder="student@example.com" required><br>
+            <button type="submit" class="btn-check">Start / Resume Quiz</button>
+        </form>
+    </div>
+
+    <!-- Top Status Bar -->
+    <div class="controls" id="quizControls" style="display:none;">
+        <span class="user-badge">Student: <span id="displayUser"></span></span>
+        <button class="btn-logout" onclick="logout()">Logout / Switch Student</button>
+    </div>
+
+    <div class="progress-bar-container" id="progressBarBox" style="display:none;">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Main Question View -->
+    <div class="quiz-layout">
+        <div class="quiz-body" id="quizBody">
+            <div class="q-number" id="qNumber">Question 1 of 22</div>
+            <div class="question-text" id="questionText">Loading Question...</div>
+
+            <ul class="options-list" id="optionsList"></ul>
+
+            <div class="explanation-box" id="explanationBox">
+                <strong>Rationale:</strong> <span id="explanationText"></span>
+            </div>
+
+            <div class="footer-btn-group">
+                <div>
+                    <button class="btn-skip" id="skipBtn" onclick="skipQuestion()">Skip Question</button>
+                    <button class="btn-check" id="checkBtn" onclick="submitAnswer()" disabled>Submit Answer</button>
+                </div>
+                <button class="btn-next" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            </div>
+        </div>
+
+        <!-- Navigation Grid Side Panel -->
+        <div class="side-panel" id="sidePanel">
+            <div class="panel-title">Question Grid</div>
+            <div class="status-legend">
+                <div class="legend-item"><div class="dot dot-current"></div> Current</div>
+                <div class="legend-item"><div class="dot dot-attempted"></div> Attempted</div>
+                <div class="legend-item"><div class="dot dot-skipped"></div> Skipped</div>
+                <div class="legend-item"><div class="dot dot-unvisited"></div> Unvisited</div>
+            </div>
+            <div class="q-grid" id="qGrid"></div>
+        </div>
+    </div>
+
+    <!-- Final Score & Structured Table Review -->
+    <div class="score-screen" id="scoreScreen">
+        <h2>Practice Completed!</h2>
+        <p>Your responses have been recorded. Here is your final score:</p>
+        <div class="score-badge" id="finalScore">0 / 22</div>
+        <button class="btn-check" onclick="restartQuiz()">Restart Practice</button>
+
+        <div class="review-container">
+            <h3>Response & Answer Sheet Review</h3>
+            <div style="overflow-x:auto;">
+                <table class="review-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 8%;">Q#</th>
+                            <th style="width: 12%;">Status</th>
+                            <th style="width: 32%;">Question</th>
+                            <th style="width: 24%;">Your Answer</th>
+                            <th style="width: 24%;">Correct Answer & Rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviewTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Comprehensive mapping of Lesson Examples (L3s) + Full Worksheet Questions (hw3as)
+const quizData = {
+    quadratics: [
+        // --- Part A: Lesson Examples (from video & L3s) ---
+        {
+            q: "[Lesson Example 1] Convert to vertex form by completing the square, then identify the vertex and optimal value: y = x² + 8x + 5",
+            opts: ["Minimum at (-4, -11)", "Maximum at (-4, -11)", "Minimum at (4, 21)", "Minimum at (-4, 5)"],
+            ans: 0,
+            rat: "y = (x² + 8x + 16 - 16) + 5 = (x + 4)² - 11. Axis of symmetry is x = -4. Since a = 1 > 0, the parabola opens up, giving a minimum at (-4, -11)."
+        },
+        {
+            q: "[Lesson Example 2] Convert to vertex form by completing the square, then identify the vertex and optimal value: y = 2x² - 12x + 11",
+            opts: ["Minimum at (3, -7)", "Maximum at (3, -7)", "Minimum at (-3, 29)", "Maximum at (3, 11)"],
+            ans: 0,
+            rat: "y = 2(x² - 6x) + 11 = 2(x² - 6x + 9 - 9) + 11 = 2(x - 3)² - 18 + 11 = 2(x - 3)² - 7. Since a = 2 > 0, the vertex is a minimum at (3, -7)."
+        },
+        {
+            q: "[Lesson Example 3] Convert to vertex form by completing the square, then identify the vertex and optimal value: y = -2/3 x² + 8x + 5",
+            opts: ["Maximum at (6, 29)", "Minimum at (6, 29)", "Maximum at (-6, -67)", "Maximum at (6, 5)"],
+            ans: 0,
+            rat: "y = -2/3(x² - 12x) + 5 = -2/3(x² - 12x + 36 - 36) + 5 = -2/3(x - 6)² + 24 + 5 = -2/3(x - 6)² + 29. Since a = -2/3 < 0, the vertex is a maximum at (6, 29)."
+        },
+        {
+            q: "[Lesson Partial Factoring A] Use partial factoring to find the vertex of: y = x² + 2x - 6",
+            opts: ["Minimum at (-1, -7)", "Maximum at (-1, -7)", "Minimum at (1, -3)", "Minimum at (-1, -6)"],
+            ans: 0,
+            rat: "Set y = -6 ⇒ x(x + 2) = 0 ⇒ x = 0 or x = -2. Axis of symmetry x = -1. y(-1) = 1 - 2 - 6 = -7. Vertex is a minimum at (-1, -7)."
+        },
+        {
+            q: "[Lesson Partial Factoring B] Use partial factoring to find the vertex of: y = 4x² - 12x + 3",
+            opts: ["Minimum at (3/2, -6)", "Maximum at (3/2, -6)", "Minimum at (3, 3)", "Minimum at (-3/2, 30)"],
+            ans: 0,
+            rat: "Set y = 3 ⇒ 4x(x - 3) = 0 ⇒ x = 0 or x = 3. Axis of symmetry x = 3/2. y(3/2) = 4(9/4) - 12(3/2) + 3 = 9 - 18 + 3 = -6. Vertex is a minimum at (3/2, -6)."
+        },
+        {
+            q: "[Lesson Partial Factoring C] Use partial factoring to find the vertex of: y = -3x² + 9x - 2",
+            opts: ["Maximum at (3/2, 19/4)", "Minimum at (3/2, 19/4)", "Maximum at (3, -2)", "Maximum at (-3/2, -89/4)"],
+            ans: 0,
+            rat: "Set y = -2 ⇒ -3x(x - 3) = 0 ⇒ x = 0 or x = 3. Axis of symmetry x = 3/2. y(3/2) = -3(9/4) + 9(3/2) - 2 = -27/4 + 54/4 - 8/4 = 19/4. Vertex is a maximum at (3/2, 19/4)."
+        },
+
+        // --- Part B: Worksheet Completing the Square (hw3as Q1) ---
+        {
+            q: "[Worksheet 1a] Find the vertex and state max/min by completing the square: f(x) = x² + 14x - 14",
+            opts: ["Minimum at (-7, -63)", "Maximum at (-7, -63)", "Minimum at (7, 35)", "Minimum at (-7, -14)"],
+            ans: 0,
+            rat: "f(x) = (x² + 14x + 49) - 49 - 14 = (x + 7)² - 63. Since a = 1 > 0, vertex is a minimum at (-7, -63)."
+        },
+        {
+            q: "[Worksheet 1b] Find the vertex and state max/min by completing the square: f(x) = x² - 6x + 17",
+            opts: ["Minimum at (3, 8)", "Maximum at (3, 8)", "Minimum at (-3, 26)", "Maximum at (-3, 8)"],
+            ans: 0,
+            rat: "f(x) = (x² - 6x + 9) - 9 + 17 = (x - 3)² + 8. Since a = 1 > 0, vertex is a minimum at (3, 8)."
+        },
+        {
+            q: "[Worksheet 1c] Find the vertex and state max/min by completing the square: f(x) = x² + 7x + 11",
+            opts: ["Minimum at (-7/2, -5/4)", "Maximum at (-7/2, -5/4)", "Minimum at (7/2, 95/4)", "Minimum at (-7/2, 5/4)"],
+            ans: 0,
+            rat: "f(x) = (x² + 7x + 49/4) - 49/4 + 44/4 = (x + 7/2)² - 5/4. Since a = 1 > 0, vertex is a minimum at (-7/2, -5/4)."
+        },
+        {
+            q: "[Worksheet 1d] Find the vertex and state max/min by completing the square: f(x) = 2x² + 12x + 16",
+            opts: ["Minimum at (-3, -2)", "Maximum at (-3, -2)", "Minimum at (3, 2)", "Minimum at (-3, 16)"],
+            ans: 0,
+            rat: "f(x) = 2(x² + 6x + 9 - 9) + 16 = 2(x + 3)² - 18 + 16 = 2(x + 3)² - 2. Since a = 2 > 0, vertex is a minimum at (-3, -2)."
+        },
+        {
+            q: "[Worksheet 1e] Find the vertex and state max/min by completing the square: f(x) = -3x² + 6x + 1",
+            opts: ["Maximum at (1, 4)", "Minimum at (1, 4)", "Maximum at (-1, -8)", "Maximum at (1, 1)"],
+            ans: 0,
+            rat: "f(x) = -3(x² - 2x + 1 - 1) + 1 = -3(x - 1)² + 3 + 1 = -3(x - 1)² + 4. Since a = -3 < 0, vertex is a maximum at (1, 4)."
+        },
+        {
+            q: "[Worksheet 1f] Find the vertex and state max/min by completing the square: f(x) = -1/2 x² - x + 3/2",
+            opts: ["Maximum at (-1, 2)", "Minimum at (-1, 2)", "Maximum at (1, 0)", "Maximum at (-1, 3/2)"],
+            ans: 0,
+            rat: "f(x) = -1/2(x² + 2x + 1 - 1) + 3/2 = -1/2(x + 1)² + 1/2 + 3/2 = -1/2(x + 1)² + 2. Vertex is a maximum at (-1, 2)."
+        },
+
+        // --- Part C: Worksheet Partial Factoring (hw3as Q2) ---
+        {
+            q: "[Worksheet 2a] Find the vertex and state max/min using partial factoring: f(x) = 3x² - 6x + 11",
+            opts: ["Minimum at (1, 8)", "Maximum at (1, 8)", "Minimum at (2, 11)", "Minimum at (-1, 20)"],
+            ans: 0,
+            rat: "Set f(x) = 11 ⇒ 3x(x - 2) = 0 ⇒ x = 0 or 2. Axis of symmetry x = 1. f(1) = 3 - 6 + 11 = 8. Vertex is a minimum at (1, 8)."
+        },
+        {
+            q: "[Worksheet 2b] Find the vertex and state max/min using partial factoring: f(x) = -2x² + 8x - 3",
+            opts: ["Maximum at (2, 5)", "Minimum at (2, 5)", "Maximum at (4, -3)", "Maximum at (-2, -27)"],
+            ans: 0,
+            rat: "Set f(x) = -3 ⇒ -2x(x - 4) = 0 ⇒ x = 0 or 4. Axis of symmetry x = 2. f(2) = -8 + 16 - 3 = 5. Vertex is a maximum at (2, 5)."
+        },
+        {
+            q: "[Worksheet 2c] Find the vertex and state max/min using partial factoring: h(x) = -x² + 2x + 4",
+            opts: ["Maximum at (1, 5)", "Minimum at (1, 5)", "Maximum at (2, 4)", "Maximum at (-1, 1)"],
+            ans: 0,
+            rat: "Set h(x) = 4 ⇒ -x(x - 2) = 0 ⇒ x = 0 or 2. Axis of symmetry x = 1. h(1) = -1 + 2 + 4 = 5. Vertex is a maximum at (1, 5)."
+        },
+        {
+            q: "[Worksheet 2d] Find the vertex and state max/min using partial factoring: f(x) = 2x² + 12x + 17",
+            opts: ["Minimum at (-3, -1)", "Maximum at (-3, -1)", "Minimum at (3, 71)", "Minimum at (-6, 17)"],
+            ans: 0,
+            rat: "Set f(x) = 17 ⇒ 2x(x + 6) = 0 ⇒ x = 0 or -6. Axis of symmetry x = -3. f(-3) = 18 - 36 + 17 = -1. Vertex is a minimum at (-3, -1)."
+        },
+        {
+            q: "[Worksheet 2e] Find the vertex and state max/min using partial factoring: f(x) = 4x² + 64x + 156",
+            opts: ["Minimum at (-8, -100)", "Maximum at (-8, -100)", "Minimum at (-16, 156)", "Minimum at (8, 924)"],
+            ans: 0,
+            rat: "Set f(x) = 156 ⇒ 4x(x + 16) = 0 ⇒ x = 0 or -16. Axis of symmetry x = -8. f(-8) = 256 - 512 + 156 = -100. Vertex is a minimum at (-8, -100)."
+        },
+        {
+            q: "[Worksheet 2f] Find the vertex and state max/min using partial factoring: f(x) = 1/2 x² - 3x + 8",
+            opts: ["Minimum at (3, 7/2)", "Maximum at (3, 7/2)", "Minimum at (6, 8)", "Minimum at (3, 5/2)"],
+            ans: 0,
+            rat: "Set f(x) = 8 ⇒ 1/2 x(x - 6) = 0 ⇒ x = 0 or 6. Axis of symmetry x = 3. f(3) = 4.5 - 9 + 8 = 3.5 = 7/2. Vertex is a minimum at (3, 7/2)."
+        },
+
+        // --- Part D: Word Problems (hw3as Q3, 4, 5) ---
+        {
+            q: "[Worksheet 3] An electronics store sells 60 entertainment systems per month at an average markup of $800 over cost. For every $20 increase in selling price, one fewer system is sold. What amount over cost price will maximize revenue?",
+            opts: ["$1000", "$900", "$1200", "$800"],
+            ans: 0,
+            rat: "R(x) = (800 + 20x)(60 - x). Roots are -40 and 60. Peak occurs at x = (-40 + 60)/2 = 10 increases. Markup = 800 + 20(10) = $1000."
+        },
+        {
+            q: "[Worksheet 4] A banquet hall charged $30 per person and 60 people attended. For every 10 extra people attending, the manager decreases the price by $1.50 per person. What group size will maximize profit/revenue?",
+            opts: ["130 people", "120 people", "140 people", "70 people"],
+            ans: 0,
+            rat: "P(x) = (30 - 1.50x)(60 + 10x). Roots are 20 and -6. Axis of symmetry is x = 7. Group size = 60 + 10(7) = 130 people."
+        },
+        {
+            q: "[Worksheet 4b] In the banquet hall problem above, what is the maximum profit/revenue achievable?",
+            opts: ["$2535", "$2400", "$2700", "$2100"],
+            ans: 0,
+            rat: "At x = 7, price = 30 - 1.50(7) = $19.50. Group = 130. Maximum Profit = 130 × 19.50 = $2535."
+        },
+        {
+            q: "[Worksheet 5] The path of a rocket is modeled by h(t) = -3t² + 30t + 73, where h is height in meters and t is time in seconds. Find the maximum height and the time it is reached.",
+            opts: ["Max height: 148 m at t = 5 s", "Max height: 73 m at t = 0 s", "Max height: 158 m at t = 5 s", "Max height: 148 m at t = 10 s"],
+            ans: 0,
+            rat: "h(t) = -3(t² - 10t + 25 - 25) + 73 = -3(t - 5)² + 148. The maximum height of 148 meters is reached at t = 5 seconds."
+        }
+    ]
+};
+
+let currentUser = null;
+let currentChapter = "quadratics";
+let currentIndex = 0;
+let selectedOption = null;
+let userAnswers = {};
+
+function toggleVideo() {
+    const videoBox = document.getElementById("videoBox");
+    const toggleText = document.getElementById("videoToggleText");
+    if (videoBox.style.display === "block") {
+        videoBox.style.display = "none";
+        toggleText.innerText = "▶ Show Video Lesson";
+    } else {
+        videoBox.style.display = "block";
+        toggleText.innerText = "▲ Hide Video Lesson";
+    }
+}
+
+function handleLogin(event) {
+    event.preventDefault();
+    const emailInput = document.getElementById("userEmail").value.trim().toLowerCase();
+    if (!emailInput) return;
+
+    currentUser = emailInput;
+    document.getElementById("displayUser").innerText = currentUser;
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("quizControls").style.display = "flex";
+    document.getElementById("progressBarBox").style.display = "block";
+    document.getElementById("sidePanel").style.display = "block";
+
+    loadProgress();
+}
+
+function logout() {
+    saveProgress();
+    currentUser = null;
+    document.getElementById("quizControls").style.display = "none";
+    document.getElementById("progressBarBox").style.display = "none";
+    document.getElementById("quizBody").style.display = "none";
+    document.getElementById("sidePanel").style.display = "none";
+    document.getElementById("scoreScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display = "block";
+    document.getElementById("userEmail").value = "";
+}
+
+function saveProgress() {
+    if (!currentUser) return;
+    const progressData = {
+        currentIndex: currentIndex,
+        userAnswers: userAnswers,
+        completed: document.getElementById("scoreScreen").style.display === "block"
+    };
+    localStorage.setItem(`quiz_progress_${currentUser}_${currentChapter}`, JSON.stringify(progressData));
+}
+
+function loadProgress() {
+    if (!currentUser) return;
+    const saved = localStorage.getItem(`quiz_progress_${currentUser}_${currentChapter}`);
+    if (saved) {
+        try {
+            const progressData = JSON.parse(saved);
+            currentIndex = progressData.currentIndex || 0;
+            userAnswers = progressData.userAnswers || {};
+
+            if (progressData.completed) {
+                showScoreScreen();
+                return;
+            }
+        } catch(e) {
+            currentIndex = 0;
+            userAnswers = {};
+        }
+    } else {
+        currentIndex = 0;
+        userAnswers = {};
+    }
+    
+    document.getElementById("quizBody").style.display = "block";
+    document.getElementById("scoreScreen").style.display = "none";
+    showQuestion();
+}
+
+function renderGrid() {
+    const questions = quizData[currentChapter];
+    const gridBox = document.getElementById("qGrid");
+    gridBox.innerHTML = "";
+
+    questions.forEach((_, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "grid-btn";
+        btn.innerText = idx + 1;
+
+        if (idx === currentIndex) {
+            btn.classList.add("current");
+        } else if (userAnswers[idx] === "skipped") {
+            btn.classList.add("skipped");
+        } else if (userAnswers[idx] !== undefined) {
+            btn.classList.add("attempted");
+        }
+
+        btn.onclick = () => {
+            currentIndex = idx;
+            showQuestion();
+        };
+        gridBox.appendChild(btn);
+    });
+}
+
+function showQuestion() {
+    const questions = quizData[currentChapter];
+    const qData = questions[currentIndex];
+
+    selectedOption = null;
+    document.getElementById("checkBtn").disabled = true;
+    document.getElementById("checkBtn").style.display = "inline-block";
+    document.getElementById("skipBtn").style.display = "inline-block";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("explanationBox").style.display = "none";
+
+    const progressPercent = (currentIndex / questions.length) * 100;
+    document.getElementById("progressBar").style.width = progressPercent + "%";
+
+    document.getElementById("qNumber").innerText = `Question ${currentIndex + 1} of ${questions.length}`;
+    document.getElementById("questionText").innerText = qData.q;
+
+    const optionsList = document.getElementById("optionsList");
+    optionsList.innerHTML = "";
+    
+    qData.opts.forEach((optText, i) => {
+        const li = document.createElement("li");
+        li.className = "option-item";
+        li.innerHTML = `<strong>${String.fromCharCode(65 + i)})</strong>&nbsp; ${optText}`;
+        li.onclick = () => selectOption(i, li);
+        optionsList.appendChild(li);
+    });
+
+    if (userAnswers[currentIndex] !== undefined && userAnswers[currentIndex] !== "skipped") {
+        selectedOption = userAnswers[currentIndex];
+        const items = document.querySelectorAll(".option-item");
+        if (items[selectedOption]) items[selectedOption].classList.add("selected");
+        revealAttemptFeedback();
+    }
+
+    renderGrid();
+}
+
+function selectOption(index, element) {
+    const items = document.querySelectorAll(".option-item");
+    items.forEach(item => item.classList.remove("selected"));
+
+    selectedOption = index;
+    element.classList.add("selected");
+    document.getElementById("checkBtn").disabled = false;
+}
+
+function submitAnswer() {
+    if (selectedOption !== null) {
+        userAnswers[currentIndex] = selectedOption;
+        saveProgress();
+        revealAttemptFeedback();
+    }
+}
+
+function revealAttemptFeedback() {
+    const questions = quizData[currentChapter];
+    const qData = questions[currentIndex];
+    const items = document.querySelectorAll(".option-item");
+
+    items.forEach(item => item.onclick = null);
+
+    if (selectedOption === qData.ans) {
+        if (items[selectedOption]) items[selectedOption].classList.add("correct");
+    } else {
+        if (selectedOption !== null && items[selectedOption]) items[selectedOption].classList.add("wrong");
+        if (items[qData.ans]) items[qData.ans].classList.add("correct");
+    }
+
+    document.getElementById("explanationText").innerText = qData.rat;
+    document.getElementById("explanationBox").style.display = "block";
+
+    document.getElementById("checkBtn").style.display = "none";
+    document.getElementById("skipBtn").style.display = "none";
+    document.getElementById("nextBtn").style.display = "inline-block";
+    renderGrid();
+}
+
+function skipQuestion() {
+    userAnswers[currentIndex] = "skipped";
+    saveProgress();
+    moveToNext();
+}
+
+function nextQuestion() {
+    moveToNext();
+}
+
+function moveToNext() {
+    const questions = quizData[currentChapter];
+    currentIndex++;
+
+    if (currentIndex < questions.length) {
+        showQuestion();
+    } else {
+        showScoreScreen();
+    }
+}
+
+function calculateScore() {
+    const questions = quizData[currentChapter];
+    let finalScore = 0;
+    questions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            finalScore++;
+        }
+    });
+    return finalScore;
+}
+
+function showScoreScreen() {
+    const questions = quizData[currentChapter];
+    const score = calculateScore();
+
+    document.getElementById("progressBar").style.width = "100%";
+    document.getElementById("quizBody").style.display = "none";
+    document.getElementById("sidePanel").style.display = "none";
+    document.getElementById("scoreScreen").style.display = "block";
+    document.getElementById("finalScore").innerText = `${score} / ${questions.length}`;
+
+    const tbody = document.getElementById("reviewTableBody");
+    tbody.innerHTML = "";
+
+    questions.forEach((q, idx) => {
+        const uAns = userAnswers[idx];
+        let tagClass = "tag-skipped";
+        let tagText = "Skipped";
+
+        if (uAns === q.ans) {
+            tagClass = "tag-correct";
+            tagText = "Correct";
+        } else if (uAns !== undefined && uAns !== "skipped") {
+            tagClass = "tag-wrong";
+            tagText = "Incorrect";
+        }
+
+        const userChoice = (uAns !== undefined && uAns !== "skipped") 
+            ? `${String.fromCharCode(65 + uAns)}) ${q.opts[uAns]}` 
+            : "<em>None (Skipped)</em>";
+        const correctChoice = `<strong>${String.fromCharCode(65 + q.ans)})</strong> ${q.opts[q.ans]}`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><strong>Q${idx + 1}</strong></td>
+            <td><span class="status-tag ${tagClass}">${tagText}</span></td>
+            <td>${q.q}</td>
+            <td>${userChoice}</td>
+            <td>${correctChoice}<br><small style="color:#64748b;">${q.rat}</small></td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    saveProgress();
+}
+
+function restartQuiz() {
+    if (currentUser) {
+        localStorage.removeItem(`quiz_progress_${currentUser}_${currentChapter}`);
+    }
+    currentIndex = 0;
+    userAnswers = {};
+    document.getElementById("sidePanel").style.display = "block";
+    loadProgress();
+}
+</script>
+
+</body>
+</html>
